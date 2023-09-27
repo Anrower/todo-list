@@ -130,5 +130,6 @@ module.exports = {
         skipComments: true,
       },
     ],
+    'no-param-reassign': 'off',
   },
 };
