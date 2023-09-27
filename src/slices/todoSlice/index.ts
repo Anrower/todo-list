@@ -18,9 +18,20 @@ export const todoSlice = createSlice({
         (todoItem) => todoItem.id !== action.payload,
       );
     },
+    updateTodo: (state: TodoStateType, action: PayloadAction<TodoItemType>) => {
+      const result = state.todoList.map((todoItem) => {
+        if (todoItem.id === action.payload.id) {
+          return action.payload;
+        }
+
+        return todoItem;
+      });
+
+      state.todoList = result;
+    },
   },
 });
 
-export const { addTodo, removeTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
 
 export default todoSlice;

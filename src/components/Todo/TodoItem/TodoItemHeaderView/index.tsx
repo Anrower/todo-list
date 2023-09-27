@@ -1,17 +1,33 @@
 import React from 'react';
 import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 import { Button } from 'antd';
-
-import './index.scss';
 import { useDispatch } from '../../../../store/store';
-import { removeTodo } from '../../../../slices/todoSlice';
+import { removeTodo, updateTodo } from '../../../../slices/todoSlice';
+import { TodoItemType } from '../../../../model/Todo';
+import './index.scss';
 
-const TodoItemHeaderViewComponent = ({ id }: { id: string }) => {
+const TodoItemHeaderViewComponent = ({
+  creationDate,
+  description,
+  id,
+  isEdit,
+}: TodoItemType) => {
   const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    dispatch(
+      updateTodo({
+        id: creationDate,
+        description,
+        creationDate,
+        isEdit: true,
+      }),
+    );
+  };
 
   return (
     <div className="todo-item-header">
-      <Button>
+      <Button autoFocus={isEdit} onClick={handleEdit}>
         <EditTwoTone />
       </Button>
       <Button onClick={() => dispatch(removeTodo(id))}>

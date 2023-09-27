@@ -13,12 +13,8 @@ const Todo = () => {
     <div className="todo-wrapper">
       <AddTodo />
       <div className="todo-list">
-        {todoList.map((todoItem: TodoItemType, index) => (
-          <TodoItemComponent
-            key={todoItem.creationDate}
-            {...todoItem}
-            index={index}
-          />
+        {todoList.map((todoItem: TodoItemType) => (
+          <TodoItemComponent key={todoItem.creationDate} todoItem={todoItem} />
         ))}
       </div>
     </div>

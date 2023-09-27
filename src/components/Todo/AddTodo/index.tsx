@@ -19,8 +19,10 @@ const AddTodo = () => {
         id: creationDate,
         description,
         creationDate,
+        isEdit: false,
       }),
     );
+    setDescription('');
   };
 
   const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
@@ -30,7 +32,7 @@ const AddTodo = () => {
   return (
     <div className="add-todo">
       <h2>Add new Todo</h2>
-      <TextArea onChange={handleChange} />
+      <TextArea onChange={handleChange} value={description} />
       <Button onClick={handleAdd} type="primary">
         Add
       </Button>

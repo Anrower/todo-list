@@ -1,0 +1,9 @@
+.todo-item-edit-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  button {
+    align-self: flex-end;
+  }
+}

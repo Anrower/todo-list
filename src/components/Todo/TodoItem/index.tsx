@@ -1,36 +1,59 @@
-import React from 'react';
-import { Button, Card } from 'antd';
+import React, { useState } from 'react';
+import { Button, Card, Input } from 'antd';
 import moment from 'moment';
 import TodoItemHeaderViewComponent from './TodoItemHeaderView';
+import { TodoItemType } from '../../../model/Todo';
+import './index.scss';
+import { updateTodo } from '../../../slices/todoSlice';
+import { useDispatch } from '../../../store/store';
 
-export type TodoItemPropsType = {
-  id: string;
-  creationDate: string;
-  description: string;
-  index: number;
-};
+const { TextArea } = Input;
 
-const TodoItemComponent = ({
-  creationDate,
-  description,
-  index,
-  id,
-}: TodoItemPropsType) => {
-  const shiftIndex = 1;
+const TodoItemComponent = ({ todoItem }: { todoItem: TodoItemType }) => {
+  const {
+    id,
+    isEdit,
+    description: defaultDescription,
+    creationDate,
+  } = todoItem;
+  const [description, setDescription] = useState(defaultDescription);
+  const dispatch = useDispatch();
 
   const convertDate = (date: string) => {
     const momentDate = moment(date);
 
     return momentDate.format('DD MMM YYYY HH:mm');
   };
+  const handleUpdate = () => {
+    dispatch(
+      updateTodo({
+        id,
+        description,
+        creationDate,
+        isEdit: false,
+      }),
+    );
+  };
+
+  const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    setDescription(e.currentTarget.value);
+  };
 
   return (
     <Card
-      extra={<TodoItemHeaderViewComponent id={id} />}
+      extra={<TodoItemHeaderViewComponent {...todoItem} />}
       style={{ width: 300 }}
-      title={index + shiftIndex}
     >
-      <p>{description}</p>
+      {isEdit ? (
+        <div className="todo-item-edit-view">
+          <TextArea onChange={handleChange} value={description} />
+          <Button onClick={handleUpdate} type="primary">
+            Save
+          </Button>
+        </div>
+      ) : (
+        <p>{description}</p>
+      )}
       <p>{convertDate(creationDate)}</p>
     </Card>
   );
