@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { TodoItemType, TodoStateType } from '../../model/Todo';
+import { TODO_LOCAL_STORAGE_KEY } from '../../components/constants/default';
 
 const initialState: TodoStateType = {
   todoList: [],
@@ -10,13 +11,25 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
+    setTodoList: (
+      state: TodoStateType,
+      action: PayloadAction<TodoItemType[]>,
+    ) => {
+      state.todoList = action.payload;
+    },
     addTodo: (state: TodoStateType, action: PayloadAction<TodoItemType>) => {
-      state.todoList.push(action.payload);
+      const result = [...state.todoList, action.payload];
+
+      state.todoList = result;
+      localStorage.setItem(TODO_LOCAL_STORAGE_KEY, JSON.stringify(result));
     },
     removeTodo: (state: TodoStateType, action: PayloadAction<string>) => {
-      state.todoList = state.todoList.filter(
+      const result = state.todoList.filter(
         (todoItem) => todoItem.id !== action.payload,
       );
+
+      state.todoList = result;
+      localStorage.setItem(TODO_LOCAL_STORAGE_KEY, JSON.stringify(result));
     },
     updateTodo: (state: TodoStateType, action: PayloadAction<TodoItemType>) => {
       const result = state.todoList.map((todoItem) => {
@@ -28,10 +41,13 @@ export const todoSlice = createSlice({
       });
 
       state.todoList = result;
+      localStorage.setItem(TODO_LOCAL_STORAGE_KEY, JSON.stringify(result));
     },
   },
 });
 
-export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
+export const {
+  addTodo, removeTodo, updateTodo, setTodoList,
+} = todoSlice.actions;
 
 export default todoSlice;
