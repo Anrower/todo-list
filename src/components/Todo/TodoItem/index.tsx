@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Card } from 'antd';
 import moment from 'moment';
+import TodoItemHeaderViewComponent from './TodoItemHeaderView';
 
 export type TodoItemPropsType = {
+  id: string;
   creationDate: string;
   description: string;
   index: number;
@@ -12,6 +14,7 @@ const TodoItemComponent = ({
   creationDate,
   description,
   index,
+  id,
 }: TodoItemPropsType) => {
   const shiftIndex = 1;
 
@@ -22,7 +25,11 @@ const TodoItemComponent = ({
   };
 
   return (
-    <Card style={{ width: 300 }} title={index + shiftIndex}>
+    <Card
+      extra={<TodoItemHeaderViewComponent id={id} />}
+      style={{ width: 300 }}
+      title={index + shiftIndex}
+    >
       <p>{description}</p>
       <p>{convertDate(creationDate)}</p>
     </Card>

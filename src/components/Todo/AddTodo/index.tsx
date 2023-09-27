@@ -8,7 +8,7 @@ import { addTodo } from '../../../slices/todoSlice';
 const { TextArea } = Input;
 
 const AddTodo = () => {
-  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
   const dispatch = useDispatch();
 
   const handleAdd = () => {
@@ -16,14 +16,15 @@ const AddTodo = () => {
 
     dispatch(
       addTodo({
-        description: value,
+        id: creationDate,
+        description,
         creationDate,
       }),
     );
   };
 
   const handleChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
-    setValue(e.currentTarget.value);
+    setDescription(e.currentTarget.value);
   };
 
   return (
