@@ -3,7 +3,7 @@ import { Input, Button } from 'antd';
 
 import './index.scss';
 import { useDispatch } from '../../../store/store';
-import { addTodo } from '../todoSlice';
+import { addTodo } from '../../../slices/todoSlice';
 
 const { TextArea } = Input;
 
@@ -12,12 +12,12 @@ const AddTodo = () => {
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    const date = new Date().toISOString();
+    const creationDate = new Date().toISOString();
 
     dispatch(
       addTodo({
         description: value,
-        date,
+        creationDate,
       }),
     );
   };

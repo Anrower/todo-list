@@ -1,6 +1,6 @@
 export type TodoItemType = {
   description: string;
-  date: string;
+  creationDate: string;
 };
 
 export type TodoStateType = {

@@ -4,7 +4,7 @@ import {
   useDispatch as useDefaultDispatch,
 } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { todoSlice } from '../components/Todo/todoSlice';
+import { todoSlice } from '../slices/todoSlice';
 
 export const store = configureStore({
   reducer: {
