@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { TodoItemType, TodoStateType } from '../../model/Todo';
-import { TODO_LOCAL_STORAGE_KEY } from '../../components/constants/default';
+import { TodoItemType, TodoStateType } from '../../models/Todo';
+import { TODO_LOCAL_STORAGE_KEY } from '../../constants/default';
 
 const initialState: TodoStateType = {
   todoList: [],

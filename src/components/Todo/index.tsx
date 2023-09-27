@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import AddTodo from './AddTodo';
-
-import './index.scss';
 import { useDispatch, useSelector } from '../../store/store';
-import { TodoItemType } from '../../model/Todo';
+import { TodoItemType } from '../../models/Todo';
 import TodoItemComponent from './TodoItem';
 import { setTodoList } from '../../slices/todoSlice';
-import { TODO_LOCAL_STORAGE_KEY } from '../constants/default';
+import { TODO_LOCAL_STORAGE_KEY } from '../../constants/default';
 import { Empty } from 'antd';
+import './index.scss';
 
 const Todo = () => {
   const { todoList } = useSelector((state) => state.todoListReducer);
@@ -25,10 +24,14 @@ const Todo = () => {
     <div className="todo-wrapper">
       <AddTodo />
       {todoList.length ? (
-        <div className="todo-list">
-          {todoList.map((todoItem: TodoItemType) => (
-            <TodoItemComponent key={todoItem.creationDate} todoItem={todoItem} />
-          ))}
+        <div>
+          <h2>Todo List</h2>
+          <div className="todo-list">
+
+            {todoList.map((todoItem: TodoItemType) => (
+              <TodoItemComponent key={todoItem.creationDate} todoItem={todoItem} />
+            ))}
+          </div>
         </div>
       ) : (
         <Empty />

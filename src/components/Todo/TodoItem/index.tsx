@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Card, Input } from 'antd';
 import moment from 'moment';
-import TodoItemHeaderViewComponent from './TodoItemHeaderView';
-import { TodoItemType } from '../../../model/Todo';
+import TodoItemHeaderView from './HeaderView';
+import { TodoItemType } from '../../../models/Todo';
 import './index.scss';
 import { updateTodo } from '../../../slices/todoSlice';
 import { useDispatch } from '../../../store/store';
@@ -41,8 +41,9 @@ const TodoItemComponent = ({ todoItem }: { todoItem: TodoItemType }) => {
 
   return (
     <Card
-      extra={<TodoItemHeaderViewComponent {...todoItem} />}
+      extra={<TodoItemHeaderView {...todoItem} />}
       style={{ width: 300 }}
+      title={`${convertDate(creationDate)}`}
     >
       {isEdit ? (
         <div className="todo-item-edit-view">
@@ -54,7 +55,6 @@ const TodoItemComponent = ({ todoItem }: { todoItem: TodoItemType }) => {
       ) : (
         <p>{description}</p>
       )}
-      <p>{convertDate(creationDate)}</p>
     </Card>
   );
 };

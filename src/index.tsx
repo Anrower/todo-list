@@ -1,10 +1,7 @@
-// libraries
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-// styles
 import './index.css';
-// components
 import App from './components/app';
 import { store } from './store/store';
 

@@ -1,5 +1,5 @@
 .todo-wrapper {
-    max-width: 1200px;
+    max-width: 1245px;
     margin: 20px auto;
     display: flex;
     flex-direction: column;
@@ -7,8 +7,9 @@
 }
 
 .todo-list {
-    margin-top: 40px;
+    margin: 40px auto;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 15px;
 }

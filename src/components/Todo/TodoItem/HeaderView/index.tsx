@@ -3,10 +3,10 @@ import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useDispatch } from '../../../../store/store';
 import { removeTodo, updateTodo } from '../../../../slices/todoSlice';
-import { TodoItemType } from '../../../../model/Todo';
+import { TodoItemType } from '../../../../models/Todo';
 import './index.scss';
 
-const TodoItemHeaderViewComponent = ({
+const TodoItemHeaderView = ({
   creationDate,
   description,
   id,
@@ -37,4 +37,4 @@ const TodoItemHeaderViewComponent = ({
   );
 };
 
-export default TodoItemHeaderViewComponent;
+export default TodoItemHeaderView;
