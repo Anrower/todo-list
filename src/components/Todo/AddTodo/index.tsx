@@ -19,6 +19,7 @@ const AddTodo = () => {
         description,
         creationDate,
         isEdit: false,
+        isDone: false,
       }),
     );
     setDescription('');

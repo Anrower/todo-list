@@ -11,26 +11,26 @@ const { TextArea } = Input;
 
 const TodoItemComponent = ({ todoItem }: { todoItem: TodoItemType }) => {
   const {
-    id,
     isEdit,
     description: defaultDescription,
     creationDate,
+    isDone,
   } = todoItem;
   const [description, setDescription] = useState(defaultDescription);
   const dispatch = useDispatch();
+  const taskDescriptionStyle = isDone ? { textDecoration: 'line-through' } : { textDecoration: 'none' };
 
   const convertDate = (date: string) => {
     const momentDate = moment(date);
 
     return momentDate.format('DD MMM YYYY HH:mm');
   };
-  const handleUpdate = () => {
+
+  const handleUpdate = (field: keyof TodoItemType, value: TodoItemType[keyof TodoItemType]) => {
     dispatch(
       updateTodo({
-        id,
-        description,
-        creationDate,
-        isEdit: false,
+        ...todoItem,
+        [field]: value,
       }),
     );
   };
@@ -41,19 +41,21 @@ const TodoItemComponent = ({ todoItem }: { todoItem: TodoItemType }) => {
 
   return (
     <Card
-      extra={<TodoItemHeaderView {...todoItem} />}
+      extra={<TodoItemHeaderView handleUpdate={handleUpdate} todoItem={todoItem} />}
       style={{ width: 300 }}
       title={`${convertDate(creationDate)}`}
     >
       {isEdit ? (
         <div className="todo-item-edit-view">
           <TextArea onChange={handleChange} value={description} />
-          <Button onClick={handleUpdate} type="primary">
+          <Button onClick={() => handleUpdate('isEdit', false)} type="primary">
             Save
           </Button>
         </div>
       ) : (
-        <p>{description}</p>
+        <p className="task-description" onClick={() => handleUpdate('isDone', !isDone)} style={taskDescriptionStyle}>
+          {description}
+        </p>
       )}
     </Card>
   );

@@ -2,32 +2,25 @@ import React from 'react';
 import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 import { Button } from 'antd';
 import { useDispatch } from '../../../../store/store';
-import { removeTodo, updateTodo } from '../../../../slices/todoSlice';
+import { removeTodo } from '../../../../slices/todoSlice';
 import { TodoItemType } from '../../../../models/Todo';
 import './index.scss';
 
-const TodoItemHeaderView = ({
-  creationDate,
-  description,
-  id,
-  isEdit,
-}: TodoItemType) => {
-  const dispatch = useDispatch();
+type TodoItemHeaderViewProps = {
+  todoItem:TodoItemType;
+  handleUpdate: (field: keyof TodoItemType, value: TodoItemType[keyof TodoItemType]) => void;
+};
 
-  const handleEdit = () => {
-    dispatch(
-      updateTodo({
-        id: creationDate,
-        description,
-        creationDate,
-        isEdit: true,
-      }),
-    );
-  };
+const TodoItemHeaderView = ({
+  todoItem,
+  handleUpdate,
+}: TodoItemHeaderViewProps) => {
+  const { id, isDone } = todoItem;
+  const dispatch = useDispatch();
 
   return (
     <div className="todo-item-header">
-      <Button autoFocus={isEdit} onClick={handleEdit}>
+      <Button disabled={isDone} onClick={() => handleUpdate('isEdit', true)}>
         <EditTwoTone />
       </Button>
       <Button onClick={() => dispatch(removeTodo(id))}>

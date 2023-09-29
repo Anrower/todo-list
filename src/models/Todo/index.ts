@@ -3,6 +3,7 @@ export type TodoItemType = {
   description: string;
   creationDate: string;
   isEdit: boolean;
+  isDone: boolean;
 };
 
 export type TodoStateType = {
